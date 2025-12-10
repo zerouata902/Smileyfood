@@ -1811,7 +1811,64 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
     });
 });
   </script>
+<script>
+const preloader = document.querySelector('#preloader');
+const loaderText = document.querySelector('#loader-text');
+const loaderMessage = document.querySelector('#preloader-message');
 
+if (preloader && loaderText && loaderMessage) {
+
+  const images = document.querySelectorAll('img');
+  const totalImages = images.length;
+  let loadedImages = 0;
+
+  const finishPreloader = () => {
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.remove();
+    }, 600); // transition
+  };
+
+  const updateMessage = (progress) => {
+    if (progress < 20) {
+      loaderMessage.textContent = "لسنا لوحدين لكننا الأفضل ✨";
+    } else if (progress < 40) {
+      loaderMessage.textContent = "Best restaurant in Kenitra 🌟";
+    } else if (progress < 60) {
+      loaderMessage.textContent = "Getting ready... 🚀";
+    } else if (progress < 80) {
+      loaderMessage.textContent = "So close... 👀";
+    } else if (progress < 100) {
+      loaderMessage.textContent = "Final touches... 🔧";
+    } else {
+      loaderMessage.textContent = "Done! Enjoy! 🎉";
+    }
+  };
+
+  const updateProgress = () => {
+    loadedImages++;
+    let progress = Math.round((loadedImages / totalImages) * 100);
+    loaderText.textContent = progress + "%";
+    updateMessage(progress);
+
+    if (progress >= 100) {
+      finishPreloader();
+    }
+  };
+
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener('load', updateProgress);
+      img.addEventListener('error', updateProgress);
+    }
+  });
+
+  if (totalImages === 0) finishPreloader();
+
+}
+</script>
 
 <script>
 const buyIcons = document.querySelectorAll('.buy-icon');
