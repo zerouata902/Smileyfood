@@ -1809,47 +1809,41 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
   </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    let loader = document.getElementById("preloader");
-    let counter = document.getElementById("loader-number");
+  const preloader = document.querySelector('#preloader');
+const loaderText = document.querySelector('#loader-text');
 
-    // جلب جميع الصور في الصفحة
-    let images = document.images;
-    let totalImages = images.length;
-    let loadedImages = 0;
+if (preloader && loaderText) {
 
-    // إلا ماكانوش صور، ديرهم محمّلين
-    if (totalImages === 0) finishPreloader();
+  let duration = 20000; // 20 ثانية
+  let start = null;
 
-    // كل مرة كاتحمّل صورة نزيدو العداد
-    for (let i = 0; i < totalImages; i++) {
-        let img = new Image();
-        img.onload = imageLoaded;
-        img.onerror = imageLoaded; // حتى إذا فشلات نحتسبوها باش ميبقاش معلق
-        img.src = images[i].src;
+  function animateProgress(timestamp) {
+
+    if (!start) start = timestamp;
+
+    let progress = timestamp - start;
+    let percent = Math.min((progress / duration) * 100, 100);
+
+    loaderText.textContent = Math.floor(percent) + "%";
+
+    if (progress < duration) {
+      requestAnimationFrame(animateProgress);
     }
+  }
 
-    function imageLoaded() {
-        loadedImages++;
+  // ملي تكمل الصفحة التحميل
+  window.addEventListener('load', () => {
 
-        let percent = Math.round((loadedImages / totalImages) * 100);
-        counter.textContent = percent + "%";
+    // نبدا الكاونتر
+    requestAnimationFrame(animateProgress);
 
-        if (loadedImages >= totalImages) {
-            finishPreloader();
-        }
-    }
+    // حيد الـ preloader بعد 20 ثانية
+    setTimeout(() => {
+      preloader.remove();
+    }, 20000);
+  });
 
-    // إخفاء البريلودر بعد ما يكمل كلشي
-    function finishPreloader() {
-        setTimeout(() => {
-            loader.style.opacity = "0";
-            setTimeout(() => {
-                loader.style.display = "none";
-            }, 700);
-        }, 300); // باش يبقى شوية حتى يوضح 100%
-    }
-});
+  }
 </script>
 <script>
 const buyIcons = document.querySelectorAll('.buy-icon');
