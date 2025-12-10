@@ -1679,66 +1679,189 @@ Your happiness is our recipe for success.</h1>
 
 
 
+   
+ <!-- صفحة السلة المحسنة -->
+<div class="cart-overlay" id="cart-page">
+  <div class="cart-container">
+    <!-- الهيدر -->
+    <div class="cart-header">
+      <button class="close-btn" onclick="closeCart()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="cart-title">
+        <h2><i class="fas fa-shopping-bag"></i> Mon Panier</h2>
+        <p class="subtitle">Vérifiez vos articles avant de commander</p>
+      </div>
+      <div class="cart-count">
+        <span id="item-count">0</span> article(s)
+      </div>
+    </div>
 
+    <!-- شريط التقدم -->
+    <div class="progress-indicator">
+      <div class="progress-steps">
+        <div class="step active">
+          <div class="step-icon">1</div>
+          <span class="step-text">Panier</span>
+        </div>
+        <div class="step">
+          <div class="step-icon">2</div>
+          <span class="step-text">Livraison</span>
+        </div>
+        <div class="step">
+          <div class="step-icon">3</div>
+          <span class="step-text">Adresse</span>
+        </div>
+      </div>
+    </div>
 
-<!-- أيقونة الإغلاق داخل cart-page -->
-<div class="cart-page" id="cart-page">
-  <span class="close-cart" onclick="closeCart()">
-    <i class="fa fa-times"></i>
-  </span>
+    <!-- محتوى السلة -->
+    <div class="cart-content">
+      <div id="cart-items" class="items-list">
+        <!-- سيتم ملؤها ديناميكياً -->
+        <div class="empty-cart" id="empty-cart">
+          <div class="empty-icon">
+            <i class="fas fa-shopping-bag"></i>
+          </div>
+          <h3>Votre panier est vide</h3>
+          <p>Ajoutez des articles pour continuer</p>
+        </div>
+      </div>
+    </div>
 
-  <h3 data-fr="Votre demande" data-ar="طلباتك">Votre demande</h3>
-  <div id="cart-items"></div>
-
-  <!-- زر اطلب الآن -->
-  <button class="order-button" id="order-button" onclick="showOrderOptions()" data-fr="Commander" data-ar=" أطلب الأن">
-    Commander now
-  </button>
-</div>
-
-
-  <div class="order-options" id="order-options">
- <!-- العنوان -->
-<h1 
-  style="color:black; font-size:20px; margin-bottom:15px; font-family:sans-serif;"
-  data-fr="Choisissez votre option de commande"
-  data-ar="اختار طريقة الطلب ديالك">
-  Choisissez votre option de commande :
-</h1>
-    <button onclick="selectOption('local')" data-fr="Commander sur place" data-ar="طلب في المطعم">
-      <i class="fa fa-handshake"></i> Commander sur place
-    </button>
-    <button onclick="selectOption('delivery')" data-fr="Livraison" data-ar="توصيل">
-      <i class="fa fa-motorcycle"></i> Livraison
-    </button>
-
-    <!-- الصورة المربعة -->
-    <div class="image-box">
-      <img src="assets/img/O3.png" alt="Food">
+    <!-- زر المتابعة -->
+    <div class="cart-footer">
+      <button class="continue-btn" id="order-button" onclick="showOrderOptions()">
+        <span class="btn-text">Passer à la livraison</span>
+ 
+        <i class="fas fa-arrow-right"></i>
+      </button>
     </div>
   </div>
+</div>
 
-<!-- الخريطة -->
-<div id="map-container" style="display: none;">
-    <!-- العنوان البسيط فوق الخريطة -->
-<h1 
-  style="color:black; font-size:20px; margin-bottom:15px; font-family:sans-serif; text-align:center;"
-  data-fr="Sélectionnez votre position"
-  data-ar="">
-  Sélectionnez votre position :
-</h1>
-  <div id="map" style="height: 250px;"></div>
-<button id="send-order-button" onclick="sendWhatsAppOrder()" 
-        style="display:none;" 
-        data-fr="Envoyer la commande via WhatsApp" 
-        data-ar="📤 إرسال الطلب">
-  <i class="fab fa-whatsapp"></i> Envoyer via WhatsApp
-</button>
-   <div class="image-box2">
-      <img src="assets/img/O8.png" alt="Food">
+<!-- خيارات التوصيل -->
+<div class="options-overlay" id="order-options">
+  <div class="options-container">
+    <!-- الهيدر -->
+    <div class="options-header">
+      <button class="back-btn" onclick="goBackToCart()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="options-title">
+        <h2>Mode de livraison</h2>
+        <p>Choisissez comment recevoir votre commande</p>
+      </div>
     </div>
+
+    <!-- الخيارات -->
+    <div class="delivery-options">
+      <div class="option-card active" onclick="selectOption('local')">
+        <div class="option-icon">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="option-details">
+          <h3>À emporter</h3>
+          <p>Récupérez en restaurant</p>
+          <div class="option-meta">
+            <span class="time"><i class="fas fa-clock"></i> 15-20 min</span>
+            <span class="price">Gratuit</span>
+          </div>
+        </div>
+        <div class="option-select">
+          <i class="fas fa-check-circle"></i>
+        </div>
+      </div>
+
+      <div class="option-card" onclick="selectOption('delivery')">
+        <div class="option-icon delivery">
+          <i class="fas fa-motorcycle"></i>
+        </div>
+        <div class="option-details">
+          <h3>Livraison</h3>
+          <p>Livré à votre adresse</p>
+          <div class="option-meta">
+            <span class="time"><i class="fas fa-clock"></i> 25-40 min</span>
+            <span class="price">+15 MAD</span>
+          </div>
+        </div>
+        <div class="option-select">
+          <i class="fas fa-check-circle"></i>
+        </div>
+      </div>
     </div>
-  
+
+    <!-- صورة -->
+    <div class="illustration">
+      <div class="illustration-text">
+        <h4>Service Premium</h4>
+        <p>Nous garantissons la qualité et la fraîcheur</p>
+      </div>
+    </div>
+
+    <!-- زر المتابعة -->
+    <div class="options-footer">
+      <button class="confirm-option-btn" onclick="selectOption('delivery')">
+        Continuer
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- صفحة العنوان -->
+<div class="address-overlay" id="map-container">
+  <div class="address-container">
+    <!-- الهيدر -->
+    <div class="address-header">
+      <button class="back-btn" onclick="goBackToOptions()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="address-title">
+        <h2>Votre adresse</h2>
+        <p>Où souhaitez-vous être livré ?</p>
+      </div>
+    </div>
+
+    <!-- الخريطة -->
+    <div class="map-section">
+      <div class="map-wrapper">
+        <div id="map"></div>
+        <div class="map-center">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+      </div>
+      
+      <div class="address-input">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Rechercher une adresse..." id="address-search">
+        <button class="locate-btn" onclick="getCurrentLocation()">
+          <i class="fas fa-location-arrow"></i>
+        </button>
+      </div>
+    </div>
+
+  <!-- زر الإرسال -->
+    <div class="address-footer">
+      <button class="send-order-btn" id="send-order-button" onclick="sendWhatsAppOrder()">
+        <i class="fab fa-whatsapp"></i>
+        Confirmer la commande
+      </button>
+    </div>
+
+    <!-- صورة -->
+    <div class="address-illustration">
+      <div class="illustration-text">
+        <h4>Livraison Rapide</h4>
+        <p>Nous vous livrons en moins de 40 minutes</p>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+
+
   
   
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
