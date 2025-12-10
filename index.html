@@ -1799,38 +1799,50 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
   </script>
 
 <script>
-  const preloader = document.querySelector('#preloader');
+ const preloader = document.querySelector('#preloader');
 const loaderText = document.querySelector('#loader-text');
 
 if (preloader && loaderText) {
 
-  let duration = 20000; // 20 ثانية
-  let start = null;
+  const images = document.querySelectorAll('img');
+  const totalImages = images.length;
+  let loadedImages = 0;
 
-  function animateProgress(timestamp) {
+  let minTime = 20000; // 20 ثانية
+  let startTime = Date.now();
 
-    if (!start) start = timestamp;
+  const finishPreloader = () => {
+    let timePassed = Date.now() - startTime;
 
-    let progress = timestamp - start;
-    let percent = Math.min((progress / duration) * 100, 100);
+    // إلا ما سالاتش 20 ثانية، نسناو باش تكمل
+    let waitMore = Math.max(minTime - timePassed, 0);
 
-    loaderText.textContent = Math.floor(percent) + "%";
-
-    if (progress < duration) {
-      requestAnimationFrame(animateProgress);
-    }
-  }
-
-  // ملي تكمل الصفحة التحميل
-  window.addEventListener('load', () => {
-
-    // نبدا الكاونتر
-    requestAnimationFrame(animateProgress);
-
-    // حيد الـ preloader بعد 20 ثانية
     setTimeout(() => {
-      preloader.remove();
-    }, 20000);
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.remove();
+      }, 600); // transition
+    }, waitMore);
+  };
+
+  const updateProgress = () => {
+    loadedImages++;
+
+    let progress = Math.round((loadedImages / totalImages) * 100);
+    loaderText.textContent = progress + "%";
+
+    if (loadedImages >= totalImages) {
+      finishPreloader();
+    }
+  };
+
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener('load', updateProgress);
+      img.addEventListener('error', updateProgress);
+    }
   });
 
   }
