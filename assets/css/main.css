@@ -638,6 +638,14 @@ h6 {
   z-index: 10000;
 }
 
+#preloader-message {
+      background: linear-gradient(30deg,#ffbd15,black);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+    
+  }
+
 #preloader:before,
 #preloader:after {
   content: "";
