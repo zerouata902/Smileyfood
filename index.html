@@ -105,7 +105,7 @@ Your happiness is our recipe for success.</h1>
             </div>
           </div>
            <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src="assets/img/O14.jpg" class="img-fluid animated" alt="">
+            <img src="assets/img/O14.jpg" class="img-fluid animated" data-critical alt="">
           </div>
         </div>
       </div>
@@ -1800,37 +1800,60 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
   </script>
 
 <script>
-  const preloader = document.querySelector('#preloader');
+const preloader = document.querySelector('#preloader');
 const loaderText = document.querySelector('#loader-text');
 
 if (preloader && loaderText) {
 
-  const images = document.querySelectorAll('img');
-  const totalImages = images.length;
-  let loadedImages = 0;
+  /* ---------------------------
+        1) حساب تحميل الصور
+     --------------------------- */
+  const imgs = document.querySelectorAll('img');
+  let totalImgs = imgs.length;
+  let loadedImgs = 0;
+  let imgProgress = 0;
 
-  const updateProgress = () => {
-    loadedImages++;
-    let progress = Math.round((loadedImages / totalImages) * 100);
-    loaderText.textContent = progress + "%";
-
-    if (progress >= 100) {
-      preloader.style.opacity = "0";
-      setTimeout(() => {
-        preloader.remove();
-      }, 600); // باش يمشي مع transition ديالك
-    }
+  const updateImageProgress = () => {
+    loadedImgs++;
+    imgProgress = Math.round((loadedImgs / totalImgs) * 100);
   };
 
-  images.forEach(img => {
+  imgs.forEach(img => {
     if (img.complete) {
-      updateProgress();
+      updateImageProgress();
     } else {
-      img.addEventListener('load', updateProgress);
-      img.addEventListener('error', updateProgress);
+      img.addEventListener("load", updateImageProgress);
+      img.addEventListener("error", updateImageProgress);
     }
   });
 
+  /* ---------------------------
+        2) عداد الوقت (20 ثانية)
+     --------------------------- */
+  let timeProgress = 0; // 0 → 100
+  let duration = 20000; // 20 seconds
+  let interval = 50; // update كل 50ms
+
+  let timer = setInterval(() => {
+    timeProgress += (interval / duration) * 100;
+    if (timeProgress > 100) timeProgress = 100;
+
+    // الدمج بين progress ديال الصور وديال الوقت
+    let finalProgress = Math.round((imgProgress + timeProgress) / 2);
+
+    loaderText.textContent = finalProgress + "%";
+
+    // غير ملي بجوج يوصلو للـ100%
+    if (timeProgress === 100 && imgProgress === 100) {
+      clearInterval(timer);
+
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.remove();
+      }, 600);
+    }
+
+  }, interval);
 }
 </script>
 <script>
