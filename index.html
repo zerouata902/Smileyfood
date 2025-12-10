@@ -1626,9 +1626,18 @@ Your happiness is our recipe for success.</h1>
 
   <!-- Preloader -->
 <div id="preloader">
-  <div id="loader-text">0%</div>
+  <div id="loader-number"
+       style="
+          position:absolute;
+          top:50%;
+          left:50%;
+          transform:translate(-50%, -50%);
+          font-size:32px;
+          font-weight:bold;
+          color:black;">
+    0%
+  </div>
 </div>
-  
   
 <footer class="cart-bar" onclick="goToCartPage()">
   <div class="cart-left">
@@ -1800,61 +1809,47 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
   </script>
 
 <script>
-const preloader = document.querySelector('#preloader');
-const loaderText = document.querySelector('#loader-text');
+document.addEventListener("DOMContentLoaded", function () {
+    let loader = document.getElementById("preloader");
+    let counter = document.getElementById("loader-number");
 
-if (preloader && loaderText) {
+    // جلب جميع الصور في الصفحة
+    let images = document.images;
+    let totalImages = images.length;
+    let loadedImages = 0;
 
-  /* ---------------------------
-        1) حساب تحميل الصور
-     --------------------------- */
-  const imgs = document.querySelectorAll('img');
-  let totalImgs = imgs.length;
-  let loadedImgs = 0;
-  let imgProgress = 0;
+    // إلا ماكانوش صور، ديرهم محمّلين
+    if (totalImages === 0) finishPreloader();
 
-  const updateImageProgress = () => {
-    loadedImgs++;
-    imgProgress = Math.round((loadedImgs / totalImgs) * 100);
-  };
-
-  imgs.forEach(img => {
-    if (img.complete) {
-      updateImageProgress();
-    } else {
-      img.addEventListener("load", updateImageProgress);
-      img.addEventListener("error", updateImageProgress);
-    }
-  });
-
-  /* ---------------------------
-        2) عداد الوقت (20 ثانية)
-     --------------------------- */
-  let timeProgress = 0; // 0 → 100
-  let duration = 20000; // 20 seconds
-  let interval = 50; // update كل 50ms
-
-  let timer = setInterval(() => {
-    timeProgress += (interval / duration) * 100;
-    if (timeProgress > 100) timeProgress = 100;
-
-    // الدمج بين progress ديال الصور وديال الوقت
-    let finalProgress = Math.round((imgProgress + timeProgress) / 2);
-
-    loaderText.textContent = finalProgress + "%";
-
-    // غير ملي بجوج يوصلو للـ100%
-    if (timeProgress === 100 && imgProgress === 100) {
-      clearInterval(timer);
-
-      preloader.style.opacity = "0";
-      setTimeout(() => {
-        preloader.remove();
-      }, 600);
+    // كل مرة كاتحمّل صورة نزيدو العداد
+    for (let i = 0; i < totalImages; i++) {
+        let img = new Image();
+        img.onload = imageLoaded;
+        img.onerror = imageLoaded; // حتى إذا فشلات نحتسبوها باش ميبقاش معلق
+        img.src = images[i].src;
     }
 
-  }, interval);
-}
+    function imageLoaded() {
+        loadedImages++;
+
+        let percent = Math.round((loadedImages / totalImages) * 100);
+        counter.textContent = percent + "%";
+
+        if (loadedImages >= totalImages) {
+            finishPreloader();
+        }
+    }
+
+    // إخفاء البريلودر بعد ما يكمل كلشي
+    function finishPreloader() {
+        setTimeout(() => {
+            loader.style.opacity = "0";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 700);
+        }, 300); // باش يبقى شوية حتى يوضح 100%
+    }
+});
 </script>
 <script>
 const buyIcons = document.querySelectorAll('.buy-icon');
