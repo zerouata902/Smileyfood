@@ -1803,46 +1803,43 @@ const preloader = document.querySelector('#preloader');
 const loaderText = document.querySelector('#loader-text');
 
 if (preloader && loaderText) {
-  window.addEventListener('load', () => {
 
-    const images = document.querySelectorAll('img');
-    const totalImages = images.length;
-    let loadedImages = 0;
-    const extraWait = 5000; // 5 ثواني إضافية بعد 100%
+  const images = document.querySelectorAll('img');
+  const totalImages = images.length;
+  let loadedImages = 0;
 
-    const finishPreloader = () => {
+  const extraWait = 10000; // 5 ثواني إضافية بعد 100%
+
+  const finishPreloader = () => {
+    setTimeout(() => {
+      preloader.style.opacity = "0";
       setTimeout(() => {
-        preloader.style.opacity = "0";
-        setTimeout(() => {
-          preloader.remove();
-        }, 600); // transition fade
-      }, extraWait);
-    };
+        preloader.remove();
+      }, 600); // transition ديال الاختفاء
+    }, extraWait);
+  };
 
-    const updateProgress = () => {
-      loadedImages++;
-      let progress = Math.round((loadedImages / totalImages) * 100);
-      loaderText.textContent = progress + "%";
+  const updateProgress = () => {
+    loadedImages++;
 
-      if (progress >= 100) {
-        finishPreloader();
-      }
-    };
+    let progress = Math.round((loadedImages / totalImages) * 100);
+    loaderText.textContent = progress + "%";
 
-    images.forEach(img => {
-      if (img.complete) {
-        updateProgress();
-      } else {
-        img.addEventListener('load', updateProgress);
-        img.addEventListener('error', updateProgress);
-      }
-    });
+    if (progress >= 100) {
+      finishPreloader();
+    }
+  };
 
-    // إلا ماكانوش صور، نكملو مباشرة
-    if (totalImages === 0) finishPreloader();
-
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener('load', updateProgress);
+      img.addEventListener('error', updateProgress);
+    }
   });
-  }
+
+    }
 </script>
 <script>
 const buyIcons = document.querySelectorAll('.buy-icon');
