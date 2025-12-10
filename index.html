@@ -1626,7 +1626,16 @@ Your happiness is our recipe for success.</h1>
 
   <!-- Preloader -->
 <div id="preloader">
-  <div id="loader-text">0%</div>
+  <div id="preloader-message" 
+       style="position:absolute; top:40%; left:50%; transform:translate(-50%, -50%);
+              font-size:20px; font-weight:bold; color:#000; text-align:center;">
+    Wait a moment for SmileyFood 😋
+  </div>
+  <div id="loader-text" 
+       style="position:absolute; top:55%; left:50%; transform:translate(-50%, -50%);
+              font-size:32px; font-weight:bold; color:#000;">
+    0%
+  </div>
 </div>
   
 <footer class="cart-bar" onclick="goToCartPage()">
@@ -1801,8 +1810,9 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
 <script>
 const preloader = document.querySelector('#preloader');
 const loaderText = document.querySelector('#loader-text');
+const loaderMessage = document.querySelector('#preloader-message');
 
-if (preloader && loaderText) {
+if (preloader && loaderText && loaderMessage) {
 
   const images = document.querySelectorAll('img');
   const totalImages = images.length;
@@ -1815,12 +1825,24 @@ if (preloader && loaderText) {
     }, 600); // transition
   };
 
+  const updateMessage = (progress) => {
+    if (progress < 30) {
+      loaderMessage.textContent = "Loading ingredients 🍟";
+    } else if (progress < 70) {
+      loaderMessage.textContent = "Cooking your order 🍕";
+    } else if (progress < 100) {
+      loaderMessage.textContent = "Almost ready 😋";
+    } else {
+      loaderMessage.textContent = "Bon appétit! 😎";
+    }
+  };
+
   const updateProgress = () => {
     loadedImages++;
     let progress = Math.round((loadedImages / totalImages) * 100);
     loaderText.textContent = progress + "%";
+    updateMessage(progress);
 
-    // ملي يوصل 100% يتحيد preloader
     if (progress >= 100) {
       finishPreloader();
     }
@@ -1835,7 +1857,6 @@ if (preloader && loaderText) {
     }
   });
 
-  // إلا ماكانوش صور فالصفحة
   if (totalImages === 0) finishPreloader();
 
   }
