@@ -1799,52 +1799,49 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
   </script>
 
 <script>
- const preloader = document.querySelector('#preloader');
+const preloader = document.querySelector('#preloader');
 const loaderText = document.querySelector('#loader-text');
 
 if (preloader && loaderText) {
+  window.addEventListener('load', () => {
 
-  const images = document.querySelectorAll('img');
-  const totalImages = images.length;
-  let loadedImages = 0;
+    const images = document.querySelectorAll('img');
+    const totalImages = images.length;
+    let loadedImages = 0;
+    const extraWait = 5000; // 5 ثواني إضافية بعد 100%
 
-  let minTime = 20000; // 20 ثانية
-  let startTime = Date.now();
-
-  const finishPreloader = () => {
-    let timePassed = Date.now() - startTime;
-
-    // إلا ما سالاتش 20 ثانية، نسناو باش تكمل
-    let waitMore = Math.max(minTime - timePassed, 0);
-
-    setTimeout(() => {
-      preloader.style.opacity = "0";
+    const finishPreloader = () => {
       setTimeout(() => {
-        preloader.remove();
-      }, 600); // transition
-    }, waitMore);
-  };
+        preloader.style.opacity = "0";
+        setTimeout(() => {
+          preloader.remove();
+        }, 600); // transition fade
+      }, extraWait);
+    };
 
-  const updateProgress = () => {
-    loadedImages++;
+    const updateProgress = () => {
+      loadedImages++;
+      let progress = Math.round((loadedImages / totalImages) * 100);
+      loaderText.textContent = progress + "%";
 
-    let progress = Math.round((loadedImages / totalImages) * 100);
-    loaderText.textContent = progress + "%";
+      if (progress >= 100) {
+        finishPreloader();
+      }
+    };
 
-    if (loadedImages >= totalImages) {
-      finishPreloader();
-    }
-  };
+    images.forEach(img => {
+      if (img.complete) {
+        updateProgress();
+      } else {
+        img.addEventListener('load', updateProgress);
+        img.addEventListener('error', updateProgress);
+      }
+    });
 
-  images.forEach(img => {
-    if (img.complete) {
-      updateProgress();
-    } else {
-      img.addEventListener('load', updateProgress);
-      img.addEventListener('error', updateProgress);
-    }
+    // إلا ماكانوش صور، نكملو مباشرة
+    if (totalImages === 0) finishPreloader();
+
   });
-
   }
 </script>
 <script>
