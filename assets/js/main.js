@@ -62,12 +62,14 @@
    * Preloader
    */
   const preloader = document.querySelector('#preloader');
-  if (preloader) {
-    window.addEventListener('load', () => {
-      preloader.remove();
-    });
-  }
 
+if (preloader) {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      preloader.remove();
+    }, 2000); // 2 seconds
+  });
+}
   /**
    * Scroll top button
    */
