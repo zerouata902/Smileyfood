@@ -1625,7 +1625,9 @@ Your happiness is our recipe for success.</h1>
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader"></div>
+<div id="preloader">
+  <div id="loader-text">0%</div>
+</div>
   
   
 <footer class="cart-bar" onclick="goToCartPage()">
@@ -1796,6 +1798,41 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
     });
 });
   </script>
+
+<script>
+  const preloader = document.querySelector('#preloader');
+const loaderText = document.querySelector('#loader-text');
+
+if (preloader && loaderText) {
+
+  const images = document.querySelectorAll('img');
+  const totalImages = images.length;
+  let loadedImages = 0;
+
+  const updateProgress = () => {
+    loadedImages++;
+    let progress = Math.round((loadedImages / totalImages) * 100);
+    loaderText.textContent = progress + "%";
+
+    if (progress >= 100) {
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.remove();
+      }, 600); // باش يمشي مع transition ديالك
+    }
+  };
+
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener('load', updateProgress);
+      img.addEventListener('error', updateProgress);
+    }
+  });
+
+}
+</script>
 <script>
 const buyIcons = document.querySelectorAll('.buy-icon');
 
