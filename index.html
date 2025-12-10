@@ -1824,14 +1824,18 @@ if (preloader && loaderText && loaderMessage) {
   };
 
   const updateMessage = (progress) => {
-    if (progress < 30) {
-      loaderMessage.textContent = "Loading ingredients 🍟";
-    } else if (progress < 70) {
-      loaderMessage.textContent = "Cooking your order 🍕";
+    if (progress < 20) {
+      loaderMessage.textContent = "لسنا لوحدين لكننا الأفضل ✨";
+    } else if (progress < 40) {
+      loaderMessage.textContent = "Best restaurant in Kenitra 🌟";
+    } else if (progress < 60) {
+      loaderMessage.textContent = "Getting ready... 🚀";
+    } else if (progress < 80) {
+      loaderMessage.textContent = "So close... 👀";
     } else if (progress < 100) {
-      loaderMessage.textContent = "Almost ready 😋";
+      loaderMessage.textContent = "Final touches... 🔧";
     } else {
-      loaderMessage.textContent = "Bon appétit! 😎";
+      loaderMessage.textContent = "Done! Enjoy! 🎉";
     }
   };
 
@@ -1857,7 +1861,7 @@ if (preloader && loaderText && loaderMessage) {
 
   if (totalImages === 0) finishPreloader();
 
-  }
+}
 </script>
 <script>
 const buyIcons = document.querySelectorAll('.buy-icon');
