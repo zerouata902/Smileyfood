@@ -1796,6 +1796,17 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
     });
 });
   </script>
+<script>
+const buyIcons = document.querySelectorAll('.buy-icon');
+
+setInterval(() => {
+  buyIcons.forEach(icon => {
+    icon.style.animation = 'none';  // نوقف أي animation قديم
+    icon.offsetHeight;               // force reflow لإعادة تشغيل الـ animation
+    icon.style.animation = 'shake 0.4s ease-in-out 1'; // نعيد الهزة
+  });
+}, 3000);
+    </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
