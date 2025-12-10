@@ -1628,8 +1628,21 @@ Your happiness is our recipe for success.</h1>
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader">
-  <div id="loader-text">0%</div>
+<div id="preloader">
+<div id="preloader">  
+  <!-- اللوغو الدائري -->
+  <img id="preloader-logo" src="assets/img/Logo22.png" alt="Logo" 
+       style="position:absolute; top:25%; left:50%; transform:translate(-50%, -50%);
+              width:100px; height:100px; border-radius:50%; object-fit:cover; z-index:10001;">
+
+  <div id="preloader-message"   
+       style="position:absolute; top:40%; left:50%; transform:translate(-50%, -50%);  
+              font-size:18px; color:white; text-align:center; z-index:10000;">  
+    Wait a moment for SmileyFood 😋  
+  </div>  
+  <div id="loader-text">  
+    0%  
+  </div>  
 </div>
 
 
@@ -1827,6 +1840,65 @@ document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
 
 function closeModal() {
     document.getElementById("itemModal").style.display = "none";
+}
+  </script>
+
+  <script>
+const preloader = document.querySelector('#preloader');
+const loaderText = document.querySelector('#loader-text');
+const loaderMessage = document.querySelector('#preloader-message');
+
+if (preloader && loaderText && loaderMessage) {
+
+  const images = document.querySelectorAll('img');
+  const totalImages = images.length;
+  let loadedImages = 0;
+
+  const finishPreloader = () => {
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.remove();
+    }, 600); // transition
+  };
+
+  const updateMessage = (progress) => {
+    if (progress < 20) {
+      loaderMessage.textContent = "لسنا لوحدين لكننا الأفضل ✨";
+    } else if (progress < 40) {
+      loaderMessage.textContent = "Best restaurant in Kenitra 🌟";
+    } else if (progress < 60) {
+      loaderMessage.textContent = "Getting ready... 🚀";
+    } else if (progress < 80) {
+      loaderMessage.textContent = "So close... 👀";
+    } else if (progress < 100) {
+      loaderMessage.textContent = "Final touches... 🔧";
+    } else {
+      loaderMessage.textContent = "Done! Enjoy! 🎉";
+    }
+  };
+
+  const updateProgress = () => {
+    loadedImages++;
+    let progress = Math.round((loadedImages / totalImages) * 100);
+    loaderText.textContent = progress + "%";
+    updateMessage(progress);
+
+    if (progress >= 100) {
+      finishPreloader();
+    }
+  };
+
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener('load', updateProgress);
+      img.addEventListener('error', updateProgress);
+    }
+  });
+
+  if (totalImages === 0) finishPreloader();
+
 }
   </script>
 <script>
