@@ -2460,9 +2460,9 @@ background:white;
 }
 
 .item-price {
-  color: black; /* برتقالي #ffb22b */
+  color: ffb22b; /* برتقالي #ffb22b */
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
 }
 
