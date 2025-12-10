@@ -1808,15 +1808,11 @@ if (preloader && loaderText) {
   const totalImages = images.length;
   let loadedImages = 0;
 
-  const extraWait = 5000; // 5 ثواني إضافية بعد 100%
-
   const finishPreloader = () => {
+    preloader.style.opacity = "0";
     setTimeout(() => {
-      preloader.style.opacity = "0";
-      setTimeout(() => {
-        preloader.remove();
-      }, 600); // transition ديال الاختفاء
-    }, extraWait);
+      preloader.remove();
+    }, 600); // transition
   };
 
   const updateProgress = () => {
@@ -1824,25 +1820,23 @@ if (preloader && loaderText) {
     let progress = Math.round((loadedImages / totalImages) * 100);
     loaderText.textContent = progress + "%";
 
-    // هنا غادي نتاكد أن جميع الصور تحمّلوا قبل ما نخلي preloader يختفي
-    if (loadedImages >= totalImages) {
+    // ملي يوصل 100% يتحيد preloader
+    if (progress >= 100) {
       finishPreloader();
     }
   };
 
-  if (totalImages === 0) {
-    // إذا ما كاين حتى صورة، نحيد preloader مباشرة بعد الانتظار
-    finishPreloader();
-  } else {
-    images.forEach(img => {
-      if (img.complete && img.naturalWidth !== 0) {
-        updateProgress();
-      } else {
-        img.addEventListener('load', updateProgress);
-        img.addEventListener('error', updateProgress);
-      }
-    });
-  }
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener('load', updateProgress);
+      img.addEventListener('error', updateProgress);
+    }
+  });
+
+  // إلا ماكانوش صور فالصفحة
+  if (totalImages === 0) finishPreloader();
 
   }
 </script>
