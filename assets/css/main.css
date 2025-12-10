@@ -1749,7 +1749,7 @@ section,
 
 .buy-icon {
     background: black;
-    color:white;
+    color: white;
     width: 27px;
     height: 27px;
     border-radius: 50%;
@@ -1757,9 +1757,19 @@ section,
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-left: auto; /* الأيقونة في أقصى اليمين */
+    margin-left: auto;
+    animation: shake 0.4s ease-in-out 0s 1; /* أول هزة */
+    animation-iteration-count: 1; /* مرة وحدة */
 }
+
+/* الهزة */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+  }
 
 
 
