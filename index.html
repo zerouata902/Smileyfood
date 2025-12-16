@@ -1643,10 +1643,7 @@ Your happiness is our recipe for success.</h1>
   </div>
 </div>
 
-  <audio id="clickSound" preload="auto">
-  <source src="cash.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-  </audio>
+  
   
 <footer class="cart-bar" onclick="goToCartPage()">
   <div class="cart-left">
@@ -1847,25 +1844,33 @@ Your happiness is our recipe for success.</h1>
   </div>
   </div>
 
-<audio id="clickSound" src="cash.mp3" preload="auto"></audio>
 
-<span onclick="playSound();addToCart('Pizza Margherita',22,'assets/img/P1.png')">
-  <i class="fa fa-shopping-cart add-icon"></i>
-</span>
-
-<script>
-function playSound(){
-  const s = document.getElementById('clickSound');
-  s.currentTime = 0;
-  s.play();
-}
-</script>
-
+<audio id="clickSound" preload="auto">
+  <source src="cash.mp3" type="audio/mpeg">
+</audio>
   
   
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const button = document.getElementById('addToCartIcon');
+  const sound  = document.getElementById('clickSound');
+
+  button.addEventListener('click', () => {
+    sound.currentTime = 0;
+    sound.play().catch(err =>
+      console.log("Autoplay prevented:", err)
+    );
+  });
+
+});
+    </script>
 <script>
     const triggerTabList = document.querySelectorAll('[data-bs-toggle="tab"]')
     triggerTabList.forEach(triggerEl => {
