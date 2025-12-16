@@ -2707,6 +2707,13 @@ background:white;
   color: white;
   font-size: 18px;
 }
+
+
+.illustration-text p {
+  margin: 0;
+  color: black;
+  font-size: 14px;
+}
 .illustration-text h4 {
   margin: 0 0 8px 0;
   color: var(--dark);
@@ -2726,7 +2733,7 @@ background:white;
 
 .map-wrapper {
   position: relative;
-  height: 180px;
+  height: 200px;
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 15px;
