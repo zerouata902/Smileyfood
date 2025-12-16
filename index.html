@@ -1859,18 +1859,20 @@ Your happiness is our recipe for success.</h1>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  const button = document.getElementById('addToCartIcon');
-  const sound  = document.getElementById('clickSound');
+  const sound = document.getElementById('clickSound');
+  const icons = document.querySelectorAll('.cart-sound');
 
-  button.addEventListener('click', () => {
-    sound.currentTime = 0;
-    sound.play().catch(err =>
-      console.log("Autoplay prevented:", err)
-    );
+  icons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      sound.currentTime = 0;
+      sound.play().catch(err =>
+        console.log('Sound blocked:', err)
+      );
+    });
   });
 
 });
-    </script>
+  </script>
 <script>
     const triggerTabList = document.querySelectorAll('[data-bs-toggle="tab"]')
     triggerTabList.forEach(triggerEl => {
