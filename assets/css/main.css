@@ -2595,14 +2595,14 @@ background:white;
 .address-title h2 {
   margin: 0;
   font-size: 20px;
-  color: white;
+  color: black;
 }
 
 .options-title p,
 .address-title p {
   margin: 4px 0 0;
   font-size: 13px;
-  color: black;
+  color: white;
 }
 
 /* ===== OPTION CARDS ===== */
@@ -2701,7 +2701,6 @@ background:white;
 .address-illustration {
   padding: 20px;
   text-align: center;
-  background: linear-gradient(135deg, #ffb22b, #e69a1a);
 }
 
 .illustration-text h4 {
