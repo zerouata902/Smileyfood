@@ -2656,7 +2656,7 @@ background:white;
   margin: 0 0 4px 0;
   font-size: 16px;
   font-weight: 600;
-  color: var(--dark);
+  color: white;
 }
 
 .option-details p {
@@ -2692,7 +2692,7 @@ background:white;
 .option-card.active .option-select {
   color: var(--primary); /* برتقالي #ffb22b */
 }
-. adresse {
+.adresse {
   background: var(--primary);
   
 }
