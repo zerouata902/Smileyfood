@@ -1643,7 +1643,10 @@ Your happiness is our recipe for success.</h1>
   </div>
 </div>
 
-  
+  <audio id="clickSound" preload="auto">
+  <source src="cash.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
   
 <footer class="cart-bar" onclick="goToCartPage()">
   <div class="cart-left">
@@ -2033,7 +2036,16 @@ if (preloader && loaderText) {
 
 }
 </script>
-  
+  			<script>
+  const button = document.getElementById('modalAddToCart');
+  const sound = document.getElementById('clickSound');
+
+  button.addEventListener('click', () => {
+    // إعادة تعيين الوقت للصوت من البداية قبل التشغيل
+    sound.currentTime = 0;
+    sound.play().catch(err => console.log("Autoplay prevented:", err));
+  });
+        </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
