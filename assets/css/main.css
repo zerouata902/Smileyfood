@@ -2692,7 +2692,10 @@ background:white;
 .option-card.active .option-select {
   color: var(--primary); /* برتقالي #ffb22b */
 }
-
+. adresse {
+  background: var(--primary);
+  
+}
 /* ===== ILLUSTRATIONS ===== */
 .illustration,
 .address-illustration {
