@@ -1849,9 +1849,17 @@ Your happiness is our recipe for success.</h1>
 
 <audio id="clickSound" src="cash.mp3" preload="auto"></audio>
 
-<i class="fa fa-shopping-cart add-icon"
-   onclick="document.getElementById('clickSound').currentTime=0;document.getElementById('clickSound').play();addToCart('Pizza Margherita',22,'assets/img/P1.png')">
-</i>
+<span onclick="playSound();addToCart('Pizza Margherita',22,'assets/img/P1.png')">
+  <i class="fa fa-shopping-cart add-icon"></i>
+</span>
+
+<script>
+function playSound(){
+  const s = document.getElementById('clickSound');
+  s.currentTime = 0;
+  s.play();
+}
+</script>
 
   
   
