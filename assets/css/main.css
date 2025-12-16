@@ -2441,8 +2441,8 @@ background:white;
 }
 
 .cart-item img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0;
@@ -2694,7 +2694,7 @@ background:white;
 }
 .adresse {
   background: var(--primary);
-  
+  width:100%;
 }
 /* ===== ILLUSTRATIONS ===== */
 .illustration,
