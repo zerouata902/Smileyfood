@@ -2722,12 +2722,12 @@ background:white;
 
 .map-wrapper {
   position: relative;
-  height: 200px;
+  height: 210px;
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 15px;
-  background: white; /* خلفية برتقالية فاتحة */
-  border: 1px solid #ffb22b;
+  background: #ffb22b; /* خلفية برتقالية فاتحة */
+  
 }
 
 #map {
