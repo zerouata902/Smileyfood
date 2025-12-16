@@ -2040,16 +2040,7 @@ if (preloader && loaderText) {
 
 }
 </script>
-  			<script>
-  const button = document.getElementById('modalAddToCart');
-  const sound = document.getElementById('clickSound');
 
-  button.addEventListener('click', () => {
-    // إعادة تعيين الوقت للصوت من البداية قبل التشغيل
-    sound.currentTime = 0;
-    sound.play().catch(err => console.log("Autoplay prevented:", err));
-  });
-        </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
