@@ -2939,8 +2939,8 @@ background:white;
 }
 
 .cart-item .qty-controls button {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2966,9 +2966,9 @@ background:white;
 }
 
 .cart-item .qty-controls span {
-    min-width: 30px;
+    min-width: 50px;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #2d3748;
     background: #f7fafc;
