@@ -2939,8 +2939,8 @@ background:white;
 }
 
 .cart-item .qty-controls button {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2955,11 +2955,6 @@ background:white;
     box-shadow: 0 4px 10px rgba(69, 183, 209, 0.3);
 }
 
-.cart-item .qty-controls button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(69, 183, 209, 0.4);
-    background: linear-gradient(145deg, #45b7d1, #4ecdc4);
-}
 
 .cart-item .qty-controls button:active {
     transform: scale(0.95);
@@ -2968,7 +2963,7 @@ background:white;
 .cart-item .qty-controls span {
     min-width: 50px;
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #2d3748;
     background: #f7fafc;
