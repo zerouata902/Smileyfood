@@ -1967,11 +1967,11 @@ section,
   gap: 5px;
 }
 .cart-item button {
-  background: black;
+  background: orange;
   color: white;
   border: none;
   padding: 5px 8px;
-  border-radius: 5px;
+  border-radius: 50%;
 }
 .order-options, #map-container {
   display: none;
